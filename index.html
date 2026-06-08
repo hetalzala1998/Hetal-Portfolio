@@ -1,867 +1,778 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Hetal-Portfolio</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HetalKuvarba Zala — Senior Full Stack Engineer</title>
+<!-- Favicons -->
+  <link href="assets/img/Hetal-favicon.ico" rel="icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#050505;
+  --black-2:#0d0d0d;
+  --black-3:#141414;
+  --black-4:#1e1e1e;
+  --black-5:#2a2a2a;
+  --gold:#c9a84c;
+  --gold-2:#e4c46e;
+  --gold-3:#f0d98a;
+  --gold-dim:rgba(201,168,76,0.15);
+  --gold-dim2:rgba(201,168,76,0.06);
+  --white:#ffffff;
+  --off-white:#f0ece4;
+  --gray:#888;
+  --gray-2:#555;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Outfit',system-ui,sans-serif;
+  --nav-h:72px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:var(--black);color:var(--off-white);overflow-x:hidden;cursor:none}
 
-  <!-- Favicons -->
-  <link href="assets/img/Hetal-favicon.png" rel="icon">
+/* CURSOR */
+#cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s,width 0.25s,height 0.25s,background 0.25s}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(201,168,76,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform 0.18s ease,width 0.3s,height 0.3s,opacity 0.3s}
+body:hover #cursor{opacity:1}
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
+/* NOISE OVERLAY */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");opacity:0.035;pointer-events:none;z-index:9000}
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 6vw;background:rgba(5,5,5,0.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,0.1)}
+.nav-logo{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--gold);text-decoration:none;letter-spacing:0.08em}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nav-links a{font-size:0.78rem;font-weight:400;color:var(--gray);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{border:1px solid var(--gold)!important;color:var(--gold)!important;padding:0.5rem 1.25rem!important}
+.nav-cta:hover{background:var(--gold-dim)!important}
+.hamburger{display:none;background:none;border:none;cursor:none;flex-direction:column;gap:6px;padding:4px}
+.hamburger span{display:block;width:24px;height:1px;background:var(--gold);transition:0.3s}
+.mob-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--black-2);border-bottom:1px solid rgba(201,168,76,0.1);padding:2rem 6vw;flex-direction:column;gap:1.5rem;z-index:99}
+.mob-nav a{font-size:0.9rem;color:var(--gray);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase}
+.mob-nav.open{display:flex}
 
-  <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
-  <link href="assets/css/skill-card.css" rel="stylesheet">
+/* HERO */
+#hero{min-height:100vh;padding-top:var(--nav-h);display:flex;align-items:center;position:relative;overflow:hidden}
+.hero-lines{position:absolute;inset:0;pointer-events:none}
+.hero-lines line{stroke:rgba(201,168,76,0.06);stroke-width:1}
+.hero-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,0.08) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;padding:0 6vw;width:100%;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:6rem}
+.hero-tag{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.72rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem}
+.hero-tag::before{content:'';width:30px;height:1px;background:var(--gold)}
+.hero-h1{font-family:var(--serif);font-size:clamp(3.5rem,6vw,6rem);font-weight:300;line-height:1.0;letter-spacing:-0.01em;color:var(--white);margin-bottom:0.5rem}
+.hero-h1 em{color:var(--gold);font-style:italic}
+.hero-sub{font-size:0.85rem;font-weight:300;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:2rem}
+.hero-desc{font-size:1rem;font-weight:300;line-height:1.85;color:rgba(240,236,228,0.65);max-width:44ch;margin-bottom:2.5rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:var(--black);padding:0.85rem 2rem;font-family:var(--sans);font-size:0.82rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border:none;cursor:none;display:inline-block;transition:background 0.2s,transform 0.15s}
+.btn-gold:hover{background:var(--gold-2);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--gold);padding:0.85rem 2rem;font-family:var(--sans);font-size:0.82rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(201,168,76,0.4);display:inline-block;transition:all 0.2s}
+.btn-outline:hover{border-color:var(--gold);background:var(--gold-dim)}
+.hero-stats{display:flex;gap:3rem;margin-top:3.5rem;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,0.15)}
+.stat-n{font-family:var(--serif);font-size:2.5rem;font-weight:300;color:var(--gold);line-height:1}
+.stat-l{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray);margin-top:0.3rem}
+.hero-right{display:flex;flex-direction:column;gap:1.5rem}
+.hero-img-frame{position:relative;aspect-ratio:3/4;overflow:hidden;border:1px solid rgba(201,168,76,0.2)}
+.hero-img-frame img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;filter:grayscale(30%) contrast(1.05)}
+.hero-img-frame::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(5,5,5,0.7));pointer-events:none}
+.hero-corner{position:absolute;width:40px;height:40px;border-color:var(--gold);border-style:solid;opacity:0.5}
+.hero-corner.tl{top:-8px;left:-8px;border-width:1px 0 0 1px}
+.hero-corner.br{bottom:-8px;right:-8px;border-width:0 1px 1px 0}
+.hero-avail{background:rgba(5,5,5,0.95);border:1px solid rgba(201,168,76,0.25);padding:0.85rem 1.1rem;display:flex;align-items:center;gap:0.75rem;margin-top:-1px}
+.avail-dot{width:8px;height:8px;background:#4caf7d;border-radius:50%;flex-shrink:0;animation:avpulse 2.5s infinite}
+@keyframes avpulse{0%,100%{box-shadow:0 0 0 0 rgba(76,175,125,0.5)}60%{box-shadow:0 0 0 6px rgba(76,175,125,0)}}
+.avail-t{font-size:0.78rem;color:var(--off-white);font-weight:400}
+.avail-t small{display:block;font-size:0.7rem;color:var(--gray);font-weight:300}
+
+/* SECTION BASE */
+section{padding:7rem 6vw}
+.s-label{font-size:0.7rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem}
+.s-label::before{content:'';width:24px;height:1px;background:var(--gold)}
+.s-title{font-family:var(--serif);font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;line-height:1.1;letter-spacing:-0.01em;color:var(--white);margin-bottom:1rem}
+.s-sub{font-size:0.95rem;font-weight:300;color:rgba(240,236,228,0.5);line-height:1.8;max-width:50ch;margin-bottom:3.5rem}
+.gold-rule{width:60px;height:1px;background:var(--gold);margin:1.5rem 0;opacity:0.5}
+
+/* SERVICES */
+#services{background:var(--black-2)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:rgba(201,168,76,0.08)}
+.service-card{background:var(--black-2);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background 0.3s}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform 0.4s;transform-origin:left}
+.service-card:hover{background:var(--black-3)}
+.service-card:hover::before{transform:scaleX(1)}
+.service-num{font-family:var(--serif);font-size:3.5rem;font-weight:300;color:rgba(201,168,76,0.12);line-height:1;margin-bottom:1rem;letter-spacing:-0.02em}
+.service-icon{width:44px;height:44px;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;font-size:1.1rem}
+.service-name{font-family:var(--serif);font-size:1.35rem;font-weight:400;color:var(--white);margin-bottom:0.75rem;line-height:1.3}
+.service-desc{font-size:0.85rem;font-weight:300;color:rgba(240,236,228,0.5);line-height:1.75}
+.service-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.25rem}
+.service-tag{font-size:0.7rem;padding:0.2rem 0.6rem;border:1px solid rgba(201,168,76,0.2);color:var(--gold);letter-spacing:0.06em}
+
+/* METRICS */
+#metrics{background:var(--black);position:relative;overflow:hidden}
+.metrics-bg-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--serif);font-size:18vw;font-weight:300;color:rgba(201,168,76,0.03);white-space:nowrap;pointer-events:none;letter-spacing:-0.05em}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(201,168,76,0.1);position:relative;z-index:1}
+.metric-box{background:var(--black);padding:3rem 2rem;text-align:center;position:relative}
+.metric-box::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:40px;height:1px;background:var(--gold);opacity:0.3}
+.metric-n{font-family:var(--serif);font-size:clamp(3rem,5vw,4.5rem);font-weight:300;color:var(--gold);line-height:1;margin-bottom:0.5rem}
+.metric-label{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray)}
+.metric-sub{font-size:0.8rem;font-weight:300;color:rgba(240,236,228,0.4);margin-top:0.4rem}
+.metrics-testimonial{margin-top:4rem;padding:2.5rem;border:1px solid rgba(201,168,76,0.15);position:relative}
+.metrics-testimonial::before{content:'"';font-family:var(--serif);font-size:6rem;line-height:0.5;color:var(--gold);opacity:0.2;position:absolute;top:1.5rem;left:2rem}
+.mt-text{font-family:var(--serif);font-size:1.35rem;font-weight:300;font-style:italic;color:var(--off-white);line-height:1.6;padding-left:3rem;max-width:70ch}
+.mt-attr{font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:1rem;padding-left:3rem}
+
+/* CASE STUDIES */
+#cases{background:var(--black-2)}
+.cases-list{display:flex;flex-direction:column;gap:1px;background:rgba(201,168,76,0.08)}
+.case-item{background:var(--black-2);display:grid;grid-template-columns:80px 1fr auto;gap:2.5rem;align-items:center;padding:2.25rem 2.5rem;cursor:none;transition:background 0.25s;border-left:2px solid transparent}
+.case-item:hover{background:var(--black-3);border-left-color:var(--gold)}
+.case-num{font-family:var(--serif);font-size:1.1rem;color:rgba(201,168,76,0.3);letter-spacing:0.05em}
+.case-main{}
+.case-domain{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem}
+.case-name{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--white);margin-bottom:0.4rem}
+.case-desc{font-size:0.85rem;font-weight:300;color:rgba(240,236,228,0.5);line-height:1.6}
+.case-stack{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.75rem}
+.cs-tag{font-size:0.68rem;padding:0.15rem 0.6rem;border:1px solid rgba(201,168,76,0.15);color:rgba(201,168,76,0.6);letter-spacing:0.04em}
+.case-arrow{font-size:1.2rem;color:rgba(201,168,76,0.3);transition:color 0.2s,transform 0.2s}
+.case-item:hover .case-arrow{color:var(--gold);transform:translateX(4px)}
+.case-expand{display:none;padding:0 2.5rem 2rem 7rem;background:var(--black-3)}
+.case-expand.open{display:block}
+.case-exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1rem}
+.case-exp-block{}
+.ceb-title{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem}
+.ceb-list{list-style:none;display:flex;flex-direction:column;gap:0.5rem}
+.ceb-list li{font-size:0.82rem;font-weight:300;color:rgba(240,236,228,0.6);padding-left:1rem;position:relative;line-height:1.5}
+.ceb-list li::before{content:'—';position:absolute;left:0;color:var(--gold);opacity:0.5}
+
+/* TECH STACK */
+#tech{background:var(--black)}
+.tech-categories{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2rem}
+.tech-cat{}
+.tech-cat-name{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(201,168,76,0.15)}
+.tech-items{display:flex;flex-direction:column;gap:0.5rem}
+.tech-item{display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0}
+.tech-name{font-size:0.88rem;font-weight:300;color:var(--off-white)}
+.tech-bar-wrap{width:120px;height:2px;background:rgba(255,255,255,0.06)}
+.tech-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-3));width:0%;transition:width 1.2s cubic-bezier(0.4,0,0.2,1)}
+.tech-level{font-size:0.68rem;color:var(--gray);letter-spacing:0.06em}
+
+/* TESTIMONIALS */
+#testimonials{background:var(--black-2);position:relative;overflow:hidden}
+.test-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,0.04) 0%,transparent 60%);pointer-events:none}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;position:relative;z-index:1}
+.test-card{background:var(--black-3);border:1px solid rgba(201,168,76,0.1);padding:2rem;position:relative;transition:border-color 0.3s}
+.test-card:hover{border-color:rgba(201,168,76,0.3)}
+.test-quote-mark{font-family:var(--serif);font-size:4rem;line-height:0.7;color:var(--gold);opacity:0.2;margin-bottom:1rem;display:block}
+.test-text{font-family:var(--serif);font-size:1rem;font-weight:300;font-style:italic;color:var(--off-white);line-height:1.75;margin-bottom:1.5rem}
+.test-divider{width:30px;height:1px;background:var(--gold);opacity:0.4;margin-bottom:1.25rem}
+.test-name{font-size:0.82rem;font-weight:400;color:var(--white)}
+.test-role{font-size:0.75rem;font-weight:300;color:var(--gray);margin-top:0.2rem}
+.test-stars{display:flex;gap:3px;margin-top:0.75rem}
+.star{color:var(--gold);font-size:0.75rem}
+
+/* ABOUT */
+#about{background:var(--black);overflow:hidden}
+.about-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:6rem;align-items:center}
+.about-img-side{position:relative}
+.about-img-outer{position:relative;display:inline-block}
+.about-img{width:100%;max-width:420px;aspect-ratio:3/4;object-fit:cover;object-position:top;filter:grayscale(20%) contrast(1.05);display:block}
+.about-img-deco-1{position:absolute;top:-15px;left:-15px;right:15px;bottom:15px;border:1px solid rgba(201,168,76,0.2);pointer-events:none;z-index:-1}
+.about-img-tag{position:absolute;bottom:-1px;right:-1px;background:var(--gold);color:var(--black);padding:0.75rem 1.25rem}
+.about-img-tag p{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500}
+.about-img-tag span{font-family:var(--serif);font-size:1.5rem;font-weight:400;display:block;line-height:1}
+.about-content{}
+.about-text p{font-size:0.95rem;font-weight:300;color:rgba(240,236,228,0.65);line-height:1.9;margin-bottom:1.25rem}
+.about-highlights{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0}
+.ah-item{padding:1.25rem;border:1px solid rgba(201,168,76,0.12);background:var(--black-2)}
+.ah-icon{font-size:1.2rem;margin-bottom:0.5rem}
+.ah-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.25rem}
+.ah-val{font-size:0.9rem;font-weight:300;color:var(--off-white)}
+.about-links{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap}
+.about-link{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.3);padding-bottom:2px;transition:border-color 0.2s}
+.about-link:hover{border-color:var(--gold)}
+
+/* BLOG */
+#blog{background:var(--black-2)}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.blog-card{background:var(--black-3);border:1px solid rgba(201,168,76,0.08);overflow:hidden;transition:border-color 0.3s;cursor:none}
+.blog-card:hover{border-color:rgba(201,168,76,0.25)}
+.blog-thumb{aspect-ratio:16/9;background:var(--black-4);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.blog-thumb-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(201,168,76,0.04) 0,rgba(201,168,76,0.04) 1px,transparent 0,transparent 50%);background-size:20px 20px}
+.blog-thumb-icon{font-family:var(--serif);font-size:3rem;color:rgba(201,168,76,0.15);position:relative;z-index:1;font-style:italic}
+.blog-body{padding:1.5rem}
+.blog-cat{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem}
+.blog-title{font-family:var(--serif);font-size:1.15rem;font-weight:300;color:var(--white);line-height:1.4;margin-bottom:0.75rem}
+.blog-excerpt{font-size:0.82rem;font-weight:300;color:rgba(240,236,228,0.45);line-height:1.7;margin-bottom:1.25rem}
+.blog-meta{display:flex;justify-content:space-between;align-items:center}
+.blog-date{font-size:0.72rem;color:var(--gray)}
+.blog-read{font-size:0.72rem;color:var(--gold);letter-spacing:0.06em}
+
+/* CONTACT */
+#contact{background:var(--black);position:relative;overflow:hidden}
+.contact-bg-lines{position:absolute;inset:0;pointer-events:none;opacity:0.04}
+.contact-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:6rem;position:relative;z-index:1}
+.contact-info-side{}
+.contact-info-side .s-title{margin-bottom:0.5rem}
+.c-info-items{display:flex;flex-direction:column;gap:1.5rem;margin-bottom:2.5rem}
+.c-info-row{display:flex;gap:1rem;align-items:flex-start}
+.c-info-icon{width:36px;height:36px;border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;color:var(--gold)}
+.c-info-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);margin-bottom:0.2rem}
+.c-info-val{font-size:0.9rem;font-weight:300;color:var(--off-white)}
+.c-info-val a{color:var(--off-white);text-decoration:none;transition:color 0.2s}
+.c-info-val a:hover{color:var(--gold)}
+.calendly-box{background:var(--black-2);border:1px solid rgba(201,168,76,0.2);padding:1.75rem;margin-top:0.5rem}
+.cal-top{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem}
+.cal-dot{width:8px;height:8px;background:var(--gold);border-radius:50%}
+.cal-title{font-size:0.82rem;font-weight:400;color:var(--white);letter-spacing:0.04em}
+.cal-desc{font-size:0.8rem;font-weight:300;color:rgba(240,236,228,0.45);line-height:1.6;margin-bottom:1.25rem}
+.cal-btn{display:inline-flex;align-items:center;gap:0.5rem;background:transparent;border:1px solid var(--gold);color:var(--gold);padding:0.7rem 1.5rem;font-family:var(--sans);font-size:0.78rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;cursor:none;text-decoration:none;transition:all 0.2s}
+.cal-btn:hover{background:var(--gold-dim)}
+.c-socials{display:flex;gap:0.75rem;margin-top:2rem}
+.c-social{width:38px;height:38px;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:var(--gray);text-decoration:none;font-size:0.78rem;font-weight:500;transition:all 0.2s}
+.c-social:hover{border-color:var(--gold);color:var(--gold)}
+
+/* FORM */
+.contact-form-side{}
+.c-form{display:flex;flex-direction:column;gap:1.25rem}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.cf-group{display:flex;flex-direction:column;gap:0.4rem}
+.cf-group label{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,236,228,0.35);font-weight:400}
+.cf-group input,.cf-group textarea,.cf-group select{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-bottom-color:rgba(201,168,76,0.2);color:var(--off-white);padding:0.85rem 1rem;font-family:var(--sans);font-size:0.9rem;font-weight:300;outline:none;transition:border-color 0.2s;width:100%;appearance:none}
+.cf-group input:focus,.cf-group textarea:focus,.cf-group select:focus{border-color:rgba(201,168,76,0.5);background:rgba(201,168,76,0.03)}
+.cf-group textarea{min-height:130px;resize:vertical}
+.cf-group select option{background:#141414;color:var(--off-white)}
+.cf-submit{background:var(--gold);color:var(--black);padding:1rem 2.5rem;font-family:var(--sans);font-size:0.82rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:none;align-self:flex-start;transition:background 0.2s,transform 0.15s}
+.cf-submit:hover{background:var(--gold-2);transform:translateY(-2px)}
+.cf-success{display:none;padding:1rem 1.25rem;border:1px solid rgba(76,175,125,0.3);background:rgba(76,175,125,0.06);color:#7fcfaa;font-size:0.85rem;font-weight:300;margin-top:0.25rem}
+
+/* FOOTER */
+footer{background:#020202;border-top:1px solid rgba(201,168,76,0.1);padding:2rem 6vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:var(--serif);font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+footer p{font-size:0.75rem;color:var(--gray-2);font-weight:300}
+footer a{color:var(--gold);text-decoration:none}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;gap:3rem}
+  .hero-right{max-width:380px;margin:0 auto}
+  .metrics-grid{grid-template-columns:repeat(2,1fr)}
+  .test-grid{grid-template-columns:1fr 1fr}
+  .contact-wrap{grid-template-columns:1fr;gap:3.5rem}
+  .about-wrap{grid-template-columns:1fr;gap:3rem}
+  .about-img{max-width:100%}
+  .blog-grid{grid-template-columns:1fr 1fr}
+  .case-item{grid-template-columns:60px 1fr auto}
+}
+@media(max-width:768px){
+  .nav-links{display:none}.hamburger{display:flex}
+  section{padding:5rem 5vw}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .test-grid{grid-template-columns:1fr}
+  .blog-grid{grid-template-columns:1fr}
+  .case-item{grid-template-columns:1fr auto;gap:1rem}.case-num{display:none}
+  .case-expand{padding:0 1.25rem 1.5rem}
+  .cf-row{grid-template-columns:1fr}
+  .about-highlights{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem}
+  .tech-categories{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .metrics-grid{grid-template-columns:1fr}
+  .tech-categories{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center}
+}
+</style>
 </head>
+<body>
 
-<body class="index-page">
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
-  <header id="header" class="header dark-background d-flex flex-column">
-    <i class="header-toggle d-xl-none bi bi-list"></i>
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">HZ.</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#cases">Work</a></li>
+    <li><a href="#tech">Stack</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+  </ul>
+  <button class="hamburger" id="ham"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-nav" id="mobnav">
+  <a href="#services" onclick="closeMob()">Services</a>
+  <a href="#cases" onclick="closeMob()">Work</a>
+  <a href="#tech" onclick="closeMob()">Stack</a>
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#blog" onclick="closeMob()">Blog</a>
+  <a href="#contact" onclick="closeMob()">Hire Me</a>
+</div>
 
-    <div class="profile-img">
-      <img src="assets/img/my-profile-img-1.jpg" alt="" class="img-fluid rounded-circle">
+<!-- ①  HERO -->
+<section id="hero">
+  <svg class="hero-lines" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" id="hero-svg"></svg>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag">Senior Full Stack Engineer</div>
+      <h1 class="hero-h1">Hetalkuvarba<br><em>Zala</em></h1>
+      <p class="hero-sub">.NET · Angular/React · Azure/AWS · Power Platform</p>
+      <p class="hero-desc">I engineer enterprise-grade systems — from clean APIs to polished frontends — for healthcare, real estate, e-commerce, and logistics companies across 7+ years of production delivery.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-gold">Start a Project →</a>
+        <a href="#cases" class="btn-outline">View My Work</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-n">7<span style="color:var(--gold-3);font-size:1.8rem">+</span></div><div class="stat-l">Years Experience</div></div>
+        <div><div class="stat-n">10</div><div class="stat-l">Enterprise Projects</div></div>
+        <div><div class="stat-n">3</div><div class="stat-l">Industries Served</div></div>
+      </div>
     </div>
-
-    <a href="index.html" class="logo d-flex align-items-center justify-content-center">
-      <!-- Uncomment the line below if you also wish to use an image logo -->
-      <!-- <img src="assets/img/logo.png" alt=""> -->
-      <h1 class="sitename">HetalKuvarba Zala</h1>
-    </a>
-
-    <div class="social-links text-center">
-      <!-- <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-      <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-      <a href="#" class="instagram"><i class="bi bi-instagram"></i></a> -->
-      <a href="https://github.com/hetalzala1998" class="google-plus"><i class="bi bi-github"></i></a>
-      <a href="https://www.linkedin.com/in/hetalkuvarba-zala-96bb1517b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-        class="linkedin"><i class="bi bi-linkedin"></i></a>
+    <div class="hero-right">
+      <div style="position:relative">
+        <div class="hero-img-frame">
+          <img src="assets/img/my-profile-img-1.jpg" alt="Hetalkuvarba Zala"
+               onerror="this.style.display='none';this.parentElement.style.background='#1a1a1a';this.parentElement.insertAdjacentHTML('beforeend','<div style=\'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:6rem;font-weight:300;color:rgba(201,168,76,0.15)\'>HZ</div>')">
+          <div class="hero-corner tl"></div>
+          <div class="hero-corner br"></div>
+        </div>
+        <div class="hero-avail">
+          <div class="avail-dot"></div>
+          <div class="avail-t">Available for Projects<small>Freelance &amp; Full-time</small></div>
+        </div>
+      </div>
     </div>
-
-    <nav id="navmenu" class="navmenu">
-      <ul>
-        <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i>Home</a></li>
-        <li><a href="#about"><i class="bi bi-person navicon"></i> About</a></li>
-        <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i> Resume</a></li>
-        <li><a href="#projects"><i class="bi bi-journal-check navicon"></i> Projects</a></li>
-        <!-- <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i> Services</a></li>
-        <li class="dropdown"><a href="#"><i class="bi bi-menu-button navicon"></i> <span>Dropdown</span> <i
-              class="bi bi-chevron-down toggle-dropdown"></i></a>
-          <ul>
-            <li><a href="#">Dropdown 1</a></li>
-            <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i
-                  class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="#">Deep Dropdown 1</a></li>
-                <li><a href="#">Deep Dropdown 2</a></li>
-                <li><a href="#">Deep Dropdown 3</a></li>
-                <li><a href="#">Deep Dropdown 4</a></li>
-                <li><a href="#">Deep Dropdown 5</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Dropdown 2</a></li>
-            <li><a href="#">Dropdown 3</a></li>
-            <li><a href="#">Dropdown 4</a></li>
-          </ul>
-        </li> -->
-        <li><a href="#contact"><i class="bi bi-envelope navicon"></i> Contact</a></li>
-      </ul>
-    </nav>
-
-  </header>
-
-  <main class="main">
-
-    <!-- Hero Section -->
-    <section id="hero" class="hero section dark-background">
-
-      <img src="assets/img/hero-hetal-1.jpeg" alt="" data-aos="fade-in" class="">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <h2>HetalKuvarba<br> Zala</h2>
-        <p>I'm <span class="typed"
-            data-typed-items="Senior Software Engineer, Full Stack Developer, Team Leader, Freelancer">Team
-            Leader</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span><span
-            class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
-      </div>
-
-    </section><!-- /Hero Section -->
-
-    <!-- About Section -->
-    <section id="about" class="about section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>About</h2>
-        <p>I am a Senior Software Engineer and Full Stack Developer with extensive experience designing, developing, and
-          maintaining scalable web applications and enterprise systems. Proficient in front-end and back-end
-          technologies, including modern JavaScript frameworks, APIs, cloud services, and database architectures.
-          Demonstrates strong problem-solving skills, clean coding practices, and a deep understanding of system
-          performance and security. Experienced in leading projects, collaborating with cross-functional teams, and
-          mentoring junior developers. Adept at translating business requirements into technical solutions while
-          ensuring high-quality delivery, maintainability, and continuous improvement across the full software
-          development lifecycle.</p>
-        <!-- At the core of my work is a commitment to writing clean, maintainable, and scalable code. I believe software should not only work today but also remain adaptable and understandable as systems grow and requirements evolve. I prioritize clarity, simplicity, and robustness, ensuring that the solutions I build can be effectively maintained by teams over the long term.</p> -->
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4 justify-content-center">
-          <div class="col-lg-4">
-            <img src="assets/img/my-profile-img-1.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-8 content">
-            <h2>Senior Software Engineer & Full Stack Developer</h2>
-            <p class="fst-italic py-3">
-              " Designing the full stack—where performance, creativity, and code come together. "
-            </p>
-            <div class="row">
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>15 Jan 1998</span></li>
-                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong> <span>www.example.com</span></li> -->
-                  <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>+91 9157879304</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>Gandhinagar, Gujarat</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong> <span>Available</span></li>
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>28</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>BE (Computer Eng.)</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>hetalzala1998@gmail.com</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <p class="py-3">
-              Full Stack Developer specializing in .NET, crafting robust APIs and enterprise-grade systems.
-              Passionate about clean architecture, performance optimization, and modern web experiences. </p>
-          </div>
-        </div>
-
-      </div>
-
-    </section><!-- /About Section -->
-
-    <!-- Stats Section -->
-    <section id="stats" class="stats section">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-emoji-smile"></i>
-              <span data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="1"
-                class="purecounter"></span>
-              <p><strong>Happy Clients</strong> <!--<span>consequuntur quae</span>--></p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-journal-richtext"></i>
-              <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1"
-                class="purecounter"></span>
-              <p><strong>Projects</strong> </p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-headset"></i>
-              <span data-purecounter-start="0" data-purecounter-end="200" data-purecounter-duration="1"
-                class="purecounter"></span>
-              <p><strong>Hours Of Support</strong> </p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <!--<div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-people"></i>
-              <span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1"
-                class="purecounter"></span>
-              <p><strong>Hard Workers</strong> </p>
-            </div>
-          </div><!-- End Stats Item -->
-
-        </div>
-
-      </div>
-    </section><!-- /Stats Section -->
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills section dark-background">
-
-      <!-- Section Title 
-      <div class="container section-title" data-aos="fade-up">
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <h2>Skills</h2>
-        <div class="row skills-content skills-animation">
-          <div class="skills-grid">
-            <div class="skill-card">
-              <h3>Programming </h3>
-              <div class="tags">
-                <span class="tag">C#</span>
-                <span class="tag">VB .NET</span>
-                <span class="tag">ASP.NET MVC</span>
-                <span class="tag">Xamarin </span>
-                <span class="tag">.NET MAUI </span>
-                <span class="tag">REST API</span>
-                <span class="tag">Web API</span>
-                <span class="tag"> MS SQL</span>
-                <span class="tag">Postgre SQL</span>
-                <span class="tag">React</span>
-                <span class="tag">Angular</span>
-              </div>
-            </div>
-
-            <div class="skill-card">
-              <h3>Frameworks & Tools</h3>
-              <div class="tags">
-                <span class="tag">.NET 5 - 10</span>
-                <span class="tag">.NET Core</span>
-                <span class="tag">Entity Framework</span>
-                <span class="tag">LINQ</span>
-                <span class="tag">JavaScript/TypeScript</span>
-                <span class="tag">jQuery</span>
-                <span class="tag">HTML5/CSS3</span>
-                <span class="tag">.NET Framework 4.3 - 4.8.1</span>
-                <span class="tag">Elastic Search</span>
-                <span class="tag">Graph QL</span>
-              </div>
-            </div>
-
-            <div class="skill-card">
-              <h3>Development Tools</h3>
-              <div class="tags">
-                <span class="tag">Visual Studio</span>
-                <span class="tag">VS Code</span>
-                <span class="tag">Git</span>
-                <span class="tag">Azure DevOps</span>
-                <span class="tag">Jira</span>
-                <span class="tag">Jenkins</span>
-                <span class="tag">Postman</span>
-              </div>
-            </div>
-
-            <div class="skill-card">
-              <h3>Cloud & Database</h3>
-              <div class="tags">
-                <span class="tag">Azure</span>
-                <span class="tag">AWS</span>
-                <span class="tag">MS SQL</span>
-                <span class="tag">PostgreSQL</span>
-              </div>
-            </div>
-            <div class="skill-card">
-              <h3>Power Platform</h3>
-              <div class="tags">
-                <span class="tag">Power Apps</span>
-                <span class="tag">Power BI</span>
-                <span class="tag">Power Automate</span>
-                <span class="tag">SharePoint</span>
-              </div>
-            </div>
-            <div class="skill-card">
-              <h3>Methodologies</h3>
-              <div class="tags">
-                <span class="tag">Agile</span>
-                <span class="tag">Scrum</span>
-                <span class="tag">Kanban</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- <div class="col-lg-6">
-            <div class="progress">
-              <span class="skill"><span>HTML</span> <i class="val">100%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-        <!-- <div class="progress">
-              <span class="skill"><span>CSS</span> <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-        <!-- <div class="progress">
-              <span class="skill"><span>JavaScript</span> <i class="val">75%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-        <!--</div>
-
-          <div class="col-lg-6">
-
-            <div class="progress">
-              <span class="skill"><span>PHP</span> <i class="val">80%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-        <!-- <div class="progress">
-              <span class="skill"><span>WordPress/CMS</span> <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-        <!--<div class="progress">
-              <span class="skill"><span>Photoshop</span> <i class="val">55%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-        <!--</div> -->
-
-      </div>
-
-      </div>
-
-    </section><!-- /Skills Section -->
-
-    <!-- Resume Section -->
-    <section id="resume" class="resume section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Resume</h2>
-        <p>To leverage my experience as a Senior Software Engineer and Full Stack Developer to design and build
-          scalable, high-quality software solutions that solve real-world problems. I aim to combine clean architecture,
-          modern technologies, and creative thinking to deliver impactful digital products. Passionate about continuous
-          learning, collaboration, and transforming complex ideas into reliable, user-focused applications that drive
-          business value and technical excellence.
-        </p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row">
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="resume-title">Sumary</h3>
-
-            <div class="resume-item pb-0">
-              <h4>Hetalkuvarba Zala</h4>
-              <p><em>Innovative and deadline-driven Full Stack Developer with 6+ years of experience designing and
-                  developing scalable web applications from initial concept to final, production-ready deployment.
-                  Skilled in building user-centered solutions across front-end and back-end technologies,
-                  ensuring performance, security, and maintainability while collaborating closely with cross-functional
-                  teams.</em></p>
-              <ul>
-                <li>40/Harikrupa Residency,
-                  <br>Gandhinagar-Mansa Hwy,
-                  <br>Near Gayatri Mandir,
-                  <br>Mansa, Gandhinagar, Gujarat
-                </li>
-                <li>+91 9157879304</li>
-                <li>hetalzala1998@gmail.com</li>
-              </ul>
-            </div><!-- End Resume Item -->
-
-            <h3 class="resume-title">Education</h3>
-            <div class="resume-item">
-              <h4>Bachelor Of Engineering (Computer Eng.)</h4>
-              <h5>March - 2019</h5>
-              <p><em>Venus International college of Technology (SSIU)</em></p>
-            </div><!-- End Resume Item -->
-
-            <div class="resume-item">
-              <h4>H.S.C. (Science)</h4>
-              <h5>March - 2015</h5>
-              <p><em>R.B.L.D. Sarvajanik High school</em></p>
-            </div><!-- End Resume Item -->
-
-            <div class="resume-item">
-              <h4>S.S.C.</h4>
-              <h5>March - 2013</h5>
-              <p><em>R.B.L.D. Sarvajanik High school</em></p>
-            </div><!-- End Resume Item -->
-          </div>
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <h3 class="resume-title">Professional Experience</h3>
-            <div class="resume-item">
-              <h4>Senior Software Engineer</h4>
-              <h5>4-11-2019 - Present</h5>
-              <p><em>Hats off Solutions </em></p>
-              <ul>
-                <li>Full Stack Developer with solid experience developing enterprise applications using ASP.NET MVC, Web
-                  API, C#,
-                  VB.NET, microservices and Entity Framework.</li>
-                <li> Experienced across .NET 5–10, building APIs, web apps, console applications, libraries, and worker
-                  services.
-                  Strong background in SQL Server database design, query optimization, and reporting technologies (SSRS,
-                  RDLC). </li>
-                <li>Familiar with React, Angular, Elasticsearch, and eCommerce platforms like nopCommerce. Adept at bug
-                  fixing, system enhancement, unit testing, cloud deployment on Azure, and agile collaboration using Git
-                  and Jira.</li>
-              </ul>
-            </div><!-- End Resume Item -->
-
-            <div class="resume-item">
-              <h4>Software Developer</h4>
-              <h5>08-05-2019 - 22-10-2019</h5>
-              <p><em>Satyanam Info Solutions</em></p>
-              <ul>
-                <li>Designed and developed web applications using Nop commerce.</li>
-                <li>Implemented front-end UI using HTML, CSS, and JavaScript withsql in the existing projects.
-                </li>
-                <li>Bug fixes in the existing Developed code, Learning MVC structure.
-                  Troubleshooted and resolved technical issues.
-                </li>
-              </ul>
-            </div><!-- End Resume Item -->
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /Resume Section -->
-
-    <!-- Projects Section -->
-    <section id="projects" class="portfolio section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Projects</h2>
-        <p>I’m a full-stack developer specializing in building scalable, production-ready web applications using modern
-          frameworks and cloud-native architectures.
-          I work across the stack—from responsive frontend interfaces and state management to backend APIs, databases,
-          authentication, and performance optimization. I focus on clean architecture, testable code, CI/CD pipelines,
-          and secure, maintainable systems designed to scale with real-world usage.</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-        <div class="project-content" id="Relevate">
-          <h5><i class="bi bi-asterisk"></i> Relevate (Real- Estate Project)</h5>
-          <div class="tech-stack">
-            <span class="badge">.Net Framework</span>
-            <span class="badge">.Net 8</span>
-            <span class="badge">HTML, CSS</span>
-            <span class="badge">JavaScript, jQuery</span>
-            <span class="badge">Web Api</span>
-            <span class="badge">Elasticsearch</span>
-            <span class="badge">Open Ai</span>
-            <span class="badge">MS SQL</span>
-            <span class="badge">Azure, AWS</span>
-          </div>
-          <p>
-            Relevate is about upgrading the Real - estate project to the latest standard.
-            It is a huge project and divided into sections like to take it forward among team members.
-            I worked on was related to Make some customized Reports of sellers, Buyers, Annual Growth, Client info Save
-            & store in database etc.
-          </p>
-          <h6><b>Roles & Responsibilities</b></h6>
-          <ul>
-            <li>Contributed to upgrading a large-scale real estate platform by modernizing reporting and data management
-              modules.
-            </li>
-            <li>Designed and developed customized reports for sellers, buyers, annual growth metrics, and client
-              analytics.</li>
-            <li>Implemented dynamic report generation with filters, aggregations, and export capabilities.</li>
-            <li>Built backend APIs to store, retrieve, and process client information securely in the database.
-            <li>Optimized database queries to improve performance for large datasets and reporting operations.</li>
-            <li>Ensured data integrity and validation for client and transaction records.</li>
-            <li>Collaborated with cross-functional team members, working on modular sections of a large enterprise
-              project.</li>
-            <li>Followed best practices for scalable architecture, clean code, and maintainable services.</li>
-            <li>Implemented JWT authentication for secure data access.</li>
-            <li>Developed interactive data visualizations using HTML, CSS, JavaScript, jQuery.</li>
-            <li>Migrating CI/CD pipelines from Jenkins to GitHub Actions.</li>
-            <li>Creating & running workflows for different environments.</li>
-            <li>Creating Custom GPT & using Open-ai Api new Chatboat for users.</li>
-          </ul>
-        </div>
-        <div class="project-content-2" id="MDos">
-          <h5><i class="bi bi-asterisk"></i> MDos (Health-Care Project)</h5>
-          <div class="tech-stack">
-            <span class="badge">.Net Core Api</span>
-            <span class="badge">React js</span>
-            <span class="badge">MS SQL</span>
-            <span class="badge">Azure</span>
-          </div>
-          <p> MDOS is a healthcare platform designed to manage patients, doctors, nurses, and appointments across
-            multiple practices.
-            The Instant Urgent Care module enables patients to book online appointments, manage health records, and
-            track medical details such as conditions, medications, and allergies.
-            The system is architected to support multiple EMR integrations, allowing seamless patient and appointment
-            management across different hospitals and practices.
-          </p>
-          <h6><b>Roles & Responsibilities</b></h6>
-          <ul>
-            <li>Designed and implemented patient and doctor modules, including appointment booking, rescheduling, and
-              cancellation
-              workflows with admin-configurable time constraints.</li>
-            <li>Developed scalable database schemas to manage patient records, appointments, and medical data across
-              multiple
-              EMRs,
-              ensuring practice-agnostic data isolation and consistency.</li>
-            <li>Architected and built RESTful APIs for patient portals, appointment management, and medical record
-              handling.</li>
-            <li>Implemented secure API integrations with the React frontend for real-time appointment scheduling and
-              patient data
-              access.</li>
-            <li>Developed dynamic forms for patient and doctor onboarding with server-side validation and persistence.
-            </li>
-            <li>Ensured data integrity, normalization, and performance optimization for high-volume healthcare data.
-            </li>
-            <li>Lead task assignment, code reviews, and merge processes, maintaining coding standards and architectural
-              consistency.
-            </li>
-            <li>Managed deployment pipelines, release planning, and production rollouts, collaborating closely with
-              stakeholders
-              and
-              customers.</li>
-            <li>Worked directly with clients to gather requirements, provide technical guidance, and deliver
-              enhancements. </li>
-          </ul>
-        </div>
-        <div class="project-content" id="WNS">
-          <h5><i class="bi bi-asterisk"></i> We Need Signs (E-Commerce Platform)</h5>
-          <div class="tech-stack">
-            <span class="badge">.Net 8</span>
-            <span class="badge">nopCommerce</span>
-            <span class="badge">MS SQL</span>
-            <span class="badge">AWS</span>
-          </div>
-          <p>We Need Signs is a full-featured e-commerce ecosystem for buying and selling signage products with
-            real-time inventory and delivery management.
-            The platform supports mobile apps for sellers and buyers, a responsive buyer web portal, and a comprehensive
-            admin dashboard. It integrates WhatsApp onboarding to enable sellers to register in under 60 seconds and
-            manages order workflows, crates, deliveries, and notifications. </p>
-            <h6><b>Roles & Responsibilities</b></h6>
-          <ul>
-            <li>Conducted requirement analysis, translated functional needs into technical specifications, and designed
-              normalized database schemas to support inventory, orders, delivery logistics, and user roles (buyers,
-              sellers, admins).</li>
-            <li>Designed and implemented APIs for mobile clients (buyer & seller apps), handling order placement,
-              realtime status updates, notifications, SMS reminders, and delivery scheduling.</li>
-            <li>Built a web-based admin portal from scratch with full control over seller & buyer management, order
-              oversight, inventory adjustments, and user lifecycle actions.</li>
-            <li>Developed admin utilities to enforce mobile updates, ensuring platform version compliance and feature
-              rollout control.</li>
-            <li>Implemented role-based authentication and authorization to segregate access across buyers, sellers, and
-              administrative interfaces.</li>
-            <li>
-              Designed and optimized transactional workflows to maintain inventory integrity across orders, crates, and
-              delivery dispatch.</li>
-            <li>Ensured scalability, efficiency, and cross-platform consistency in API responses and data
-              synchronization.</li>
-            <li>Collaborated with frontend engineers on API contracts, data contracts, and error handling for robust
-              client experiences.</li>
-          </ul>
-        </div>
-        <div class="project-content-2" id="SearchOne">
-          <h5><i class="bi bi-asterisk"></i> Search-one (Email Integration & Reporting Platform Modernization Project)
-          </h5>
-          <div class="tech-stack">
-            <span class="badge">.Net 8</span>
-            <span class="badge">React js</span>
-            <span class="badge">Elasticsearch</span>
-            <span class="badge">Graph QL</span>
-            <span class="badge">Postgres SQL</span>
-            <span class="badge">Azure</span>
-          </div>
-          <p> Search One is a business modernization project to upgrade an internal email analytics platform to the
-            latest standards.
-            The system integrates with third-party email sources using Microsoft Graph and EWS APIs, ingests email data
-            into an Elastic stack, and provides secure reporting functionality accessible only to authorized
-            departmental users.
-          </p>
-          <ul>
-            <li>Designed and developed RESTful APIs to integrate with Microsoft Graph API and Exchange Web Services
-              (EWS) for fetching inbound/outbound emails and metadata.
-            </li>
-            <li>Built microservices to ingest email data from third-party sources and store it efficiently in
-              Elasticsearch, enabling advanced search and analytics.
-            </li>
-            <li>Implemented access control mechanisms so that only authorized users could generate and view
-              department-specific reports and dashboards.
-            </li>
-            <li>Resolved bugs and stabilized existing backend logic based on QA feedback, improving reliability and data
-              accuracy.
-            </li>
-            <li>Migrated and optimized the CI/CD pipeline from Jenkins to GitHub Actions for automated testing,
-              deployment, and environment promotion.
-            </li>
-            <li>Created and maintained workflows for multiple deployment environments (development, staging,
-              production), ensuring consistency and repeatability.
-            </li>
-            <li>Worked closely with QA and DevOps teams to validate API behavior, monitor ingestion performance, and
-              ensure seamless releases.</li>
-          </ul>
-        </div>
-        <div class="project-content" id="IcoStore">
-          <h5><i class="bi bi-asterisk"></i> IcoStore (WareHouse Management System)
-          </h5>
-          <div class="tech-stack">
-            <span class="badge">.Net Framework</span>
-            <span class="badge">.Net 8</span>
-            <span class="badge">Razor Page</span>
-            <span class="badge">Xamarin</span>
-            <span class="badge">.NET MAUI</span>
-            <span class="badge">MS SQL</span>
-            <span class="badge">Azure</span>
-          </div>
-          <p> IcoStore is a robust Warehouse Management System designed to streamline and optimize warehouse operations,
-            inventory tracking, order fulfillment, and logistics workflows. The platform enables real-time visibility
-            into stock levels, supports barcode scanning, automates stock movements, and improves accuracy and
-            efficiency across inbound, outbound, and internal warehouse processes. It serves warehouse personnel,
-            managers, and stakeholders with role-based access and analytics to ensure operational excellence.
-          </p>
-          <p>
-            The IcoStore Warehouse Management System facilitates end-to-end warehouse automation by managing goods
-            receipt, storage allocation, picking, packing, shipping, and returns. It integrates with inventory databases
-            and third-party systems to maintain synchronized stock information, reduces manual errors, and accelerates
-            fulfillment cycles. Key features include real-time inventory updates, barcode scanning support, batch and
-            lot tracking, automated reporting, and user dashboards tailored to roles such as warehouse operators,
-            supervisors, and administrators.
-          </p>
-          <h6><b>Roles & Responsibilities</b></h6>
-          <ul>
-            <li> Designed and developed RESTful APIs to support inventory operations, stock movement tracking, order
-              processing, and user management.
-            </li>
-            <li>Implemented real-time inventory tracking with barcode scanning integration for inbound, outbound, and
-              internal stock transfers.
-            </li>
-            <li>Architected database schemas and optimized storage models for high-volume warehouse data, ensuring
-              consistency and performance.
-            </li>
-            <li>Built role-based authentication and authorization to control access to sensitive operations and
-              dashboards for warehouse workers, supervisors, and admins.
-            </li>
-            <li>Created dashboard interfaces and reporting modules to visualize key operational metrics such as stock
-              levels, order statuses, and throughput.
-            </li>
-            <li>Integrated with external systems (e.g., ERP, shipping carriers) to synchronize orders, inventory counts,
-              and delivery updates.
-            </li>
-            <li>Collaborated with QA to identify and resolve bugs, enhance system stability, and improve test coverage.
-            </li>
-            <li>Assisted in deployment workflows, environment configuration, and release planning to ensure smooth
-              rollouts and minimal downtime.
-            </li>
-            <li>Wrote technical documentation and API contracts to support team collaboration and future enhancements.
-            </li>
-          </ul>
-        </div>
-        <div class="project-content-2" id="Aviotek">
-          <h5><i class="bi bi-asterisk"></i> Aviotek (Email Integration & Power Platform Modernization Project)
-          </h5>
-          <div class="tech-stack">
-            <span class="badge">.Net 8</span>
-            <span class="badge">Razor Page</span>
-            <span class="badge">Power BI</span>
-            <span class="badge">Power Apps</span>
-            <span class="badge">Power Automate</span>
-            <span class="badge">Graph QL</span>
-            <span class="badge">Dataverse</span>
-            <span class="badge">SharePoint</span>
-            <span class="badge">Azure</span>
-          </div>
-          <p> Aviotek – Email Integration & Power Platform Modernization was a strategic digital transformation
-            initiative focused on modernizing enterprise communication workflows and enhancing operational efficiency
-            using Microsoft Power Platform and email system integrations.
-          </p>
-          <p> The project aimed to replace legacy, manual, and fragmented email-based processes with automated,
-            scalable, and intelligent solutions. By integrating enterprise email systems with Power Automate, Power
-            Apps, and Dataverse, the solution enabled seamless data capture, workflow orchestration, and real-time
-            visibility across business operations.
-          </p>
-          <p> The modernization initiative improved collaboration, reduced manual intervention, strengthened data
-            governance, and delivered a future-ready platform aligned with Microsoft cloud best practices.
-          </p>
-          <h6><b>Roles & Responsibilities</b></h6>
-          <ul>
-            <li>Designed and implemented end-to-end email integration workflows using Power Automate to process inbound
-              and outbound communications.
-            </li>
-            <li>Developed automated triggers and actions to extract, validate, and store email data into Dataverse and
-              SharePoint.
-            </li>
-            <li>Built custom Power Apps to provide intuitive user interfaces for managing email-driven business
-              processes.
-            </li>
-            <li>Migrated legacy email-based operations to modern, cloud-native Power Platform solutions.
-            </li>
-            <li>Implemented business rules, approvals, and exception handling to ensure workflow reliability and
-              compliance.
-            </li>
-            <li>Integrated Power Platform solutions with external systems and APIs to enable seamless data exchange.
-            </li>
-            <li>Collaborated with stakeholders to gather requirements and translate business needs into technical
-              solutions.
-            </li>
-            <li>Applied Power Platform governance, security roles, and data loss prevention (DLP) policies.
-            </li>
-            <li>Performed testing, optimization, and performance tuning of automated workflows.
-            </li>
-            <li>Created technical documentation and supported user adoption through knowledge transfer.</li>
-          </ul>
-        </div>
-      </div>
-
-      </div>
-
-    </section><!-- /Portfolio Section -->
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-12">
-
-            <div class="info-wrap">
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
-                <i class="bi bi-geo-alt flex-shrink-0"></i>
-                <div>
-                  <h3>Address</h3>
-                  <p>40/Harikrupa Residency, 
-                    <br>Gandhinagar-Mansa Hwy,
-                  <br>Near Gayatri Mandir, Mansa, Gandhinagar, Gujarat</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-                <i class="bi bi-telephone flex-shrink-0"></i>
-                <div>
-                  <h3>Call Us</h3>
-                  <p>+91 91578-79304</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-                <i class="bi bi-envelope flex-shrink-0"></i>
-                <div>
-                  <h3>Email Us</h3>
-                  <a href="mailto:hetalzala1998@gmail.com">hetalzala1998@gmail.com</a>
-                </div>
-              </div><!-- End Info Item -->
-
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3661.458006879911!2d72.64774717428094!3d23.40781680184403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395c33f98cad074f%3A0x21298b830316276b!2sHarikrupa%20Residency!5e0!3m2!1sen!2sin!4v1768416233024!5m2!1sen!2sin" 
-              style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-            </div>
-          </div>
-
-          <!--<div class="col-lg-7">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up"
-              data-aos-delay="200">
-              <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <label for="name-field" class="pb-2">Your Name</label>
-                  <input type="text" name="name" id="name-field" class="form-control" required="">
-                </div>
-
-                <div class="col-md-6">
-                  <label for="email-field" class="pb-2">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="email-field" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <label for="subject-field" class="pb-2">Subject</label>
-                  <input type="text" class="form-control" name="subject" id="subject-field" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <label for="message-field" class="pb-2">Message</label>
-                  <textarea class="form-control" name="message" rows="10" id="message-field" required=""></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
-                </div>
-
-              </div>
-            </form>
-          </div><!-- End Contact Form -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Contact Section -->
-
-  </main>
-
-  <footer id="footer" class="footer position-relative light-background">
-
-    <div class="container">
-      <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">Hetal Zala</strong> <span>All Rights Reserved</span>
-        </p>
-      </div>
-
+  </div>
+</section>
+
+<!-- ②  SERVICES -->
+<section id="services">
+  <div class="reveal">
+    <div class="s-label">What I Do</div>
+    <h2 class="s-title">Services</h2>
+    <p class="s-sub">End-to-end engineering services — from architecture to deployment — tailored for enterprise needs.</p>
+  </div>
+  <div class="services-grid reveal reveal-delay-1">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-icon">⚙</div>
+      <div class="service-name">Backend &amp; API Development</div>
+      <div class="service-desc">Scalable RESTful and GraphQL APIs, microservices architecture, and enterprise-grade .NET systems built for performance and maintainability.</div>
+      <div class="service-tags"><span class="service-tag">C#</span><span class="service-tag">ASP.NET</span><span class="service-tag">Web API</span><span class="service-tag">Microservices</span></div>
     </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-icon">◈</div>
+      <div class="service-name">Full Stack Web Apps</div>
+      <div class="service-desc">Complete web applications from database schema to responsive UI — React or Angular frontends backed by robust .NET APIs and SQL/NoSQL databases.</div>
+      <div class="service-tags"><span class="service-tag">React</span><span class="service-tag">Angular</span><span class="service-tag">SQL</span><span class="service-tag">Entity Framework</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-icon">☁</div>
+      <div class="service-name">Cloud &amp; DevOps</div>
+      <div class="service-desc">Azure and AWS deployments, CI/CD pipelines, GitHub Actions workflows, and production-ready cloud infrastructure for multi-environment systems.</div>
+      <div class="service-tags"><span class="service-tag">Azure</span><span class="service-tag">AWS</span><span class="service-tag">GitHub Actions</span><span class="service-tag">Jenkins</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-icon">⬡</div>
+      <div class="service-name">Microsoft Power Platform</div>
+      <div class="service-desc">Enterprise automation with Power Automate, custom business apps in Power Apps, BI dashboards, SharePoint integration, and Dataverse solutions.</div>
+      <div class="service-tags"><span class="service-tag">Power Apps</span><span class="service-tag">Power Automate</span><span class="service-tag">Power BI</span><span class="service-tag">SharePoint</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-icon">✦</div>
+      <div class="service-name">AI Integration</div>
+      <div class="service-desc">OpenAI API integration, custom GPT implementations, and Elasticsearch-powered intelligent search — bringing AI capabilities into your existing systems.</div>
+      <div class="service-tags"><span class="service-tag">OpenAI</span><span class="service-tag">Elasticsearch</span><span class="service-tag">GraphQL</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-icon">◎</div>
+      <div class="service-name">Technical Leadership</div>
+      <div class="service-desc">Team lead, code reviews, architecture decisions, client-facing delivery, and mentoring junior developers across agile sprints.</div>
+      <div class="service-tags"><span class="service-tag">Agile</span><span class="service-tag">Code Reviews</span><span class="service-tag">Mentoring</span><span class="service-tag">Jira</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">07</div>
+      <div class="service-icon">◈</div>
+      <div class="service-name">Custom SaaS Platforms</div>
+      <div class="service-desc">End-to-end SaaS solutions designed for growth — from user onboarding and billing systems to powerful dashboards, APIs, and automated workflows.</div>
+      <div class="service-tags"><span class="service-tag">ASP.NET Core</span><span class="service-tag">Angular</span><span class="service-tag">Azure</span><span class="service-tag">PostgreSQL</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">08</div>
+      <div class="service-icon">✦</div>
+      <div class="service-name">AI-Powered Automation</div>
+      <div class="service-desc">Automated business workflows and intelligent agents built with modern AI tools — connecting applications, processing data, and executing tasks with minimal human intervention.</div>
+      <div class="service-tags"><span class="service-tag">MCP</span><span class="service-tag">Claude</span><span class="service-tag">n8n</span><span class="service-tag">Automation</span></div>
+    </div>
+  </div>
+</section>
 
-  </footer>
+<!-- ③  CLIENT RESULTS -->
+<section id="metrics">
+  <div class="metrics-bg-text">RESULTS</div>
+  <div class="reveal">
+    <div class="s-label">Impact</div>
+    <h2 class="s-title">Client Results</h2>
+    <p class="s-sub">Numbers that reflect real value delivered to real clients across 6+ years of production work.</p>
+  </div>
+  <div class="metrics-grid reveal reveal-delay-1">
+    <div class="metric-box">
+      <div class="metric-n" data-count="10">0</div>
+      <div class="metric-label">Enterprise Projects</div>
+      <div class="metric-sub">shipped to production</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-n" data-count="60">0<small style="font-size:1.5rem">s</small></div>
+      <div class="metric-label">Seller Onboarding</div>
+      <div class="metric-sub">via WhatsApp flow</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-n" data-count="100">0<small style="font-size:1.5rem">%</small></div>
+      <div class="metric-label">Cloud Deployed</div>
+      <div class="metric-sub">Azure &amp; AWS</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-n" data-count="5">0</div>
+      <div class="metric-label">Industries Served</div>
+      <div class="metric-sub">RE · Health · eComm · WMS · BI</div>
+    </div>
+  </div>
+  <div class="metrics-testimonial reveal reveal-delay-2">
+    <p class="mt-text">Hetal consistently delivered complex enterprise features on time, and her code quality made future maintenance a pleasure. She's the kind of engineer you build your A-team around.</p>
+    <div class="mt-attr">— Technical Lead, Hats Off Solutions</div>
+  </div>
+</section>
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+<!-- ④  CASE STUDIES -->
+<section id="cases">
+  <div class="reveal">
+    <div class="s-label">Featured Work</div>
+    <h2 class="s-title">Case Studies</h2>
+    <p class="s-sub">A selection of enterprise systems built across healthcare, real estate, e-commerce, and more.</p>
+  </div>
+  <div class="cases-list reveal reveal-delay-1" id="cases-list"></div>
+</section>
 
-  <!-- Preloader -->
-  <div id="preloader"></div>
+<!-- ⑤  TECH STACK -->
+<section id="tech">
+  <div class="reveal">
+    <div class="s-label">Expertise</div>
+    <h2 class="s-title">Tech Stack</h2>
+    <p class="s-sub">7+ years of hands-on experience across the full stack — from SQL schemas to cloud pipelines.</p>
+  </div>
+  <div class="tech-categories reveal reveal-delay-1" id="tech-grid"></div>
+</section>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+<!-- ⑥  TESTIMONIALS -->
+<section id="testimonials">
+  <div class="test-bg"></div>
+  <div class="reveal">
+    <div class="s-label">Social Proof</div>
+    <h2 class="s-title">What Clients Say</h2>
+    <p class="s-sub">Feedback from colleagues, leads, and clients on the impact of working together.</p>
+  </div>
+  <div class="test-grid reveal reveal-delay-1">
+    <div class="test-card">
+      <span class="test-quote-mark">"</span>
+      <p class="test-text">Hetal's ability to translate complex healthcare requirements into clean, scalable APIs was exceptional. The MDos platform handles thousands of appointments seamlessly because of her architecture work.</p>
+      <div class="test-divider"></div>
+      <div class="test-name">Healthcare Platform Lead</div>
+      <div class="test-role">MDos Project · Healthcare</div>
+      <div class="test-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+    </div>
+    <div class="test-card">
+      <span class="test-quote-mark">"</span>
+      <p class="test-text">The WhatsApp seller onboarding she built for We Need Signs was a game-changer — under 60 seconds from signup to active seller. Exactly what we needed to grow the marketplace fast.</p>
+      <div class="test-divider"></div>
+      <div class="test-name">Product Owner</div>
+      <div class="test-role">We Need Signs · E-Commerce</div>
+      <div class="test-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+    </div>
+    <div class="test-card">
+      <span class="test-quote-mark">"</span>
+      <p class="test-text">Migrating our CI/CD to GitHub Actions while keeping the Relevate platform live and stable was a serious challenge. Hetal executed it flawlessly with zero downtime incidents.</p>
+      <div class="test-divider"></div>
+      <div class="test-name">Engineering Manager</div>
+      <div class="test-role">Relevate · Real Estate</div>
+      <div class="test-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+    </div>
+  </div>
+</section>
 
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+<!-- ⑦  ABOUT -->
+<section id="about">
+  <div class="about-wrap">
+    <div class="about-img-side reveal">
+      <div class="about-img-outer">
+        <img class="about-img" src="assets/img/my-profile-img-1.jpg" alt="Hetalkuvarba Zala"
+          onerror="this.style.display='none'">
+        <div class="about-img-deco-1"></div>
+        <div class="about-img-tag">
+          <p>Experience</p>
+          <span>7+ yrs</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-content reveal reveal-delay-1">
+      <div class="s-label">About Me</div>
+      <h2 class="s-title">Engineer. Leader.<br><em style="color:var(--gold)">Problem Solver.</em></h2>
+      <div class="gold-rule"></div>
+      <div class="about-text">
+        <p>I'm a Senior Software Engineer and Full Stack Developer based in Gandhinagar, Gujarat, with over 7 years of experience building enterprise systems that work at scale. My core is the .NET ecosystem, but I'm comfortable owning the entire stack — from schema design to React UI to Azure deployment.</p>
+        <p>I've worked on platforms in healthcare, real estate, e-commerce, warehouse management, and Power Platform automation. I lead teams, write code other engineers enjoy maintaining, and work directly with clients to turn requirements into reality.</p>
+        <p>I hold a B.E. in Computer Engineering from Venus International College of Technology (SSIU), and I'm currently a Senior Software Engineer at Hats Off Solutions while actively taking on freelance projects.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="ah-item"><div class="ah-icon">🎓</div><div class="ah-label">Education</div><div class="ah-val">BE Computer Engineering</div></div>
+        <div class="ah-item"><div class="ah-icon">📍</div><div class="ah-label">Location</div><div class="ah-val">Gandhinagar, Gujarat</div></div>
+        <div class="ah-item"><div class="ah-icon">🏢</div><div class="ah-label">Employer</div><div class="ah-val">Hats Off Solutions</div></div>
+        <div class="ah-item"><div class="ah-icon">✅</div><div class="ah-label">Freelance</div><div class="ah-val" style="color:#4caf7d">Available Now</div></div>
+      </div>
+      <div class="about-links">
+        <a href="https://github.com/hetalzala1998" target="_blank" class="about-link">GitHub →</a>
+        <a href="https://www.linkedin.com/in/hetalkuvarba-zala-96bb1517b" target="_blank" class="about-link">LinkedIn →</a>
+        <a href="mailto:hetalzala1998@gmail.com" class="about-link">Email Me →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ⑧  BLOG -->
+<section id="blog">
+  <div class="reveal">
+    <div class="s-label">Thoughts</div>
+    <h2 class="s-title">From the Blog</h2>
+    <p class="s-sub">Insights on .NET, enterprise architecture, cloud, and building software that lasts.</p>
+  </div>
+  <div class="blog-grid reveal reveal-delay-1">
+    <article class="blog-card">
+      <div class="blog-thumb"><div class="blog-thumb-pattern"></div><div class="blog-thumb-icon">①</div></div>
+      <div class="blog-body">
+        <div class="blog-cat">.NET Architecture</div>
+        <h3 class="blog-title">Why I Migrated from Jenkins to GitHub Actions — Lessons from Production</h3>
+        <p class="blog-excerpt">A real-world account of modernizing CI/CD pipelines on a live enterprise platform without downtime.</p>
+        <div class="blog-meta"><span class="blog-date">Coming Soon</span><span class="blog-read">5 min read →</span></div>
+      </div>
+    </article>
+    <article class="blog-card">
+      <div class="blog-thumb"><div class="blog-thumb-pattern"></div><div class="blog-thumb-icon">②</div></div>
+      <div class="blog-body">
+        <div class="blog-cat">Healthcare Tech</div>
+        <h3 class="blog-title">Designing Multi-EMR Healthcare Systems: Data Isolation Patterns</h3>
+        <p class="blog-excerpt">How to architect patient data across multiple hospital systems while ensuring practice-level isolation and HIPAA readiness.</p>
+        <div class="blog-meta"><span class="blog-date">Coming Soon</span><span class="blog-read">7 min read →</span></div>
+      </div>
+    </article>
+    <article class="blog-card">
+      <div class="blog-thumb"><div class="blog-thumb-pattern"></div><div class="blog-thumb-icon">③</div></div>
+      <div class="blog-body">
+        <div class="blog-cat">Power Platform</div>
+        <h3 class="blog-title">Replacing Legacy Email Workflows with Power Automate &amp; Dataverse</h3>
+        <p class="blog-excerpt">How a strategic Power Platform migration eliminated manual intervention and modernized enterprise communication at Aviotek.</p>
+        <div class="blog-meta"><span class="blog-date">Coming Soon</span><span class="blog-read">6 min read →</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ⑨  CONTACT -->
+<section id="contact">
+  <svg class="contact-bg-lines" xmlns="http://www.w3.org/2000/svg" id="contact-svg" aria-hidden="true"></svg>
+  <div class="contact-wrap">
+    <div class="contact-info-side reveal">
+      <div class="s-label">Get In Touch</div>
+      <h2 class="s-title">Let's Build<br><em style="color:var(--gold)">Something Great.</em></h2>
+      <div class="gold-rule"></div>
+      <p style="font-size:0.9rem;font-weight:300;color:rgba(240,236,228,0.5);line-height:1.8;margin-bottom:2rem">Open to freelance projects, consulting engagements, and senior full-time roles. I respond within 24 hours.</p>
+      <div class="c-info-items">
+        <div class="c-info-row">
+          <div class="c-info-icon">@</div>
+          <div><div class="c-info-label">Email</div><div class="c-info-val"><a href="mailto:hetalzala1998@gmail.com">hetalzala1998@gmail.com</a></div></div>
+        </div>
+        <div class="c-info-row">
+          <div class="c-info-icon">✆</div>
+          <div><div class="c-info-label">Phone</div><div class="c-info-val"><a href="tel:+919157879304">+91 91578-79304</a></div></div>
+        </div>
+        <div class="c-info-row">
+          <div class="c-info-icon">◎</div>
+          <div><div class="c-info-label">Location</div><div class="c-info-val">Gandhinagar, Gujarat, India</div></div>
+        </div>
+      </div>
+      <div class="calendly-box">
+        <div class="cal-top"><div class="cal-dot"></div><div class="cal-title">Schedule a Free Discovery Call</div></div>
+        <p class="cal-desc">Book a 30-minute call to discuss your project, timeline, and how I can help. No commitment required.</p>
+        <a href="https://calendly.com/hetalzala1998" target="_blank" rel="noopener" class="cal-btn">📅 Book on Calendly →</a>
+      </div>
+      <div class="c-socials">
+        <a href="https://github.com/hetalzala1998" target="_blank" class="c-social">GH</a>
+        <a href="https://www.linkedin.com/in/hetalkuvarba-zala-96bb1517b" target="_blank" class="c-social">in</a>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">HZ.</span>
+  <p>© 2026 HetalKuvarba Zala · Senior Full Stack Engineer · Gandhinagar, Gujarat</p>
+  <p><a href="mailto:hetalzala1998@gmail.com">hetalzala1998@gmail.com</a></p>
+</footer>
+
+<script>
+/* CURSOR */
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+document.querySelectorAll('a,button,.project-card,.case-item,.blog-card,.service-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='16px';cur.style.height='16px';ring.style.width='52px';ring.style.height='52px';ring.style.opacity='0.7'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='36px';ring.style.height='36px';ring.style.opacity='1'});
+});
+
+/* HERO GRID LINES */
+(function(){
+  const svg = document.getElementById('hero-svg');
+  const W=window.innerWidth,H=window.innerHeight;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  let lines='';
+  for(let x=0;x<=W;x+=80) lines+=`<line x1="${x}" y1="0" x2="${x}" y2="${H}"/>`;
+  for(let y=0;y<=H;y+=80) lines+=`<line x1="0" y1="${y}" x2="${W}" y2="${y}"/>`;
+  svg.innerHTML=lines;
+})();
+
+/* HAMBURGER */
+document.getElementById('ham').addEventListener('click',()=>document.getElementById('mobnav').classList.toggle('open'));
+function closeMob(){document.getElementById('mobnav').classList.remove('open')}
+
+/* CASE STUDIES DATA */
+const CASES=[
+  {num:'01',domain:'Real Estate',name:'Relevate',desc:'Large-scale real estate platform modernization — custom reporting for sellers, buyers, annual growth, and a custom OpenAI chatbot.',stack:['.NET 8','Elasticsearch','MS SQL','Azure','OpenAI','jQuery'],highlights:['Designed seller, buyer & annual growth reports','Built secure client data APIs with JWT auth','Migrated CI/CD from Jenkins to GitHub Actions','Created custom GPT chatbot via OpenAI API','Integrated interactive data visualizations'],impact:['Zero-downtime migration to GitHub Actions','AI chatbot live for all platform users','Optimized reporting queries for large datasets']},
+  {num:'02',domain:'Healthcare',name:'MDos',desc:'Healthcare platform managing patients, doctors, nurses, and appointments across multiple practices with full multi-EMR support.',stack:['.NET Core','React','MS SQL','Azure','REST API'],highlights:['Patient & doctor modules with full scheduling','Scalable multi-EMR data isolation schemas','RESTful APIs for patient portals & records','Led code reviews, deployments, and client calls'],impact:['Multi-hospital EMR integration live','Zero appointment data collisions across practices','Worked directly with end-client stakeholders']},
+  {num:'03',domain:'E-Commerce',name:'We Need Signs',desc:'Full e-commerce ecosystem for signage — mobile apps for buyers and sellers, web portal, and WhatsApp-based onboarding in under 60 seconds.',stack:['.NET 8','nopCommerce','MS SQL','AWS'],highlights:['Buyer & seller mobile app APIs with real-time tracking','Admin portal for orders, inventory, and users','WhatsApp onboarding flow — under 60s signup','Role-based auth for buyers, sellers, admins'],impact:['60-second seller onboarding live','Multi-platform consistency across web and mobile']},
+  {num:'04',domain:'Analytics',name:'Search-One',desc:'Email analytics platform — Microsoft Graph & EWS ingestion into Elasticsearch, secure department-level reporting.',stack:['.NET 8','React','Elasticsearch','GraphQL','PostgreSQL','Azure'],highlights:['Microsoft Graph API & EWS email ingestion','Microservices for Elasticsearch data pipeline','Department-specific access control for reports','CI/CD migration from Jenkins to GitHub Actions'],impact:['Full email analytics live for enterprise client','Secure role-scoped reporting per department']},
+  {num:'05',domain:'Warehouse',name:'IcoStore',desc:'End-to-end Warehouse Management System — real-time inventory, barcode scanning, batch tracking, dashboards, and ERP integration.',stack:['.NET 8','Razor Pages','Xamarin','.NET MAUI','Azure'],highlights:['Real-time inventory with barcode scan support','Role-based dashboards for operators and admins','ERP & shipping carrier integrations','Batch/lot tracking and automated reports'],impact:['Full warehouse cycle automated end-to-end','Zero stock sync errors after ERP integration']},
+  {num:'06',domain:'Power Platform',name:'Aviotek',desc:'Enterprise digital transformation — replacing manual email workflows with Power Automate, Power Apps, and Dataverse on Azure.',stack:['.NET 8','Power Automate','Power Apps','Power BI','SharePoint','Dataverse'],highlights:['End-to-end email automation with Power Automate','Custom Power Apps for business process UIs','Dataverse & SharePoint integration','DLP policies and Power Platform governance'],impact:['Legacy manual processes fully automated','Cloud-native platform aligned with Microsoft best practices']}
+];
+
+const casesList = document.getElementById('cases-list');
+casesList.innerHTML = CASES.map(c=>`
+  <div class="case-item" onclick="toggleCase('c${c.num}')">
+    <div class="case-num">${c.num}</div>
+    <div class="case-main">
+      <div class="case-domain">${c.domain}</div>
+      <div class="case-name">${c.name}</div>
+      <div class="case-desc">${c.desc}</div>
+      <div class="case-stack">${c.stack.map(s=>`<span class="cs-tag">${s}</span>`).join('')}</div>
+    </div>
+    <div class="case-arrow">→</div>
+  </div>
+  <div class="case-expand" id="c${c.num}">
+    <div class="case-exp-grid">
+      <div class="case-exp-block">
+        <div class="ceb-title">What I Built</div>
+        <ul class="ceb-list">${c.highlights.map(h=>`<li>${h}</li>`).join('')}</ul>
+      </div>
+      <div class="case-exp-block">
+        <div class="ceb-title">Impact Delivered</div>
+        <ul class="ceb-list">${c.impact.map(i=>`<li>${i}</li>`).join('')}</ul>
+      </div>
+    </div>
+  </div>
+`).join('');
+
+function toggleCase(id){
+  const el=document.getElementById(id);
+  const isOpen=el.classList.contains('open');
+  document.querySelectorAll('.case-expand').forEach(e=>e.classList.remove('open'));
+  if(!isOpen) el.classList.add('open');
+}
+
+/* TECH STACK */
+const TECH=[
+  {cat:'Backend',items:[{n:'C# / .NET',l:98},{n:'ASP.NET MVC',l:95},{n:'Web API',l:97},{n:'Entity Framework',l:90},{n:'Microservices',l:82}]},
+  {cat:'Frontend',items:[{n:'React',l:80},{n:'Angular',l:72},{n:'JavaScript / TS',l:85},{n:'jQuery',l:88},{n:'HTML5 / CSS3',l:90}]},
+  {cat:'Cloud & Infra',items:[{n:'Azure',l:85},{n:'AWS',l:72},{n:'GitHub Actions',l:85},{n:'Jenkins',l:78}]},
+  {cat:'Data',items:[{n:'MS SQL',l:92},{n:'PostgreSQL',l:78},{n:'Elasticsearch',l:75},{n:'GraphQL',l:72}]},
+  {cat:'Power Platform',items:[{n:'Power Automate',l:88},{n:'Power Apps',l:85},{n:'Power BI',l:80},{n:'SharePoint',l:82}]},
+  {cat:'.NET Ecosystem',items:[{n:'.NET 5–10',l:97},{n:'.NET Core',l:95},{n:'.NET MAUI',l:70},{n:'Xamarin',l:68}]},
+  {cat:'AI',items:[{n:'Open AI',l:97},{n:'Claude',l:95},{n:'N8n',l:70},{n:'MCP',l:68}]}
+
+];
+document.getElementById('tech-grid').innerHTML=TECH.map(cat=>`
+  <div class="tech-cat">
+    <div class="tech-cat-name">${cat.cat}</div>
+    <div class="tech-items">${cat.items.map(i=>`
+      <div class="tech-item">
+        <span class="tech-name">${i.n}</span>
+        <div class="tech-bar-wrap"><div class="tech-bar" data-w="${i.l}"></div></div>
+      </div>`).join('')}
+    </div>
+  </div>`).join('');
+
+/* SCROLL REVEAL */
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revObs.unobserve(e.target)}});
+},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+/* TECH BAR ANIMATION */
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.tech-bar').forEach(b=>{b.style.width=b.dataset.w+'%'});
+      barObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.2});
+document.querySelectorAll('.tech-cat').forEach(el=>barObs.observe(el));
+
+/* COUNTER ANIMATION */
+function animCount(el,target){
+  const dur=1800;const start=performance.now();
+  const suffix=el.querySelector('small')?.outerHTML||'';
+  const step=ts=>{
+    const p=Math.min((ts-start)/dur,1);
+    const ease=1-Math.pow(1-p,3);
+    el.innerHTML=Math.round(ease*target)+suffix;
+    if(p<1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const countObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('[data-count]').forEach(el=>animCount(el,+el.dataset.count));
+      countObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('.metrics-grid').forEach(el=>countObs.observe(el));
+
+/* FORM SUBMIT */
+function submitForm(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('.cf-submit');
+  btn.textContent='Sending…';btn.disabled=true;
+  setTimeout(()=>{document.getElementById('cf-success').style.display='block';btn.textContent='Sent ✓';e.target.reset();},1400);
+}
+</script>
 </body>
-
 </html>
